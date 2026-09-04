@@ -1,62 +1,43 @@
-## Task 1: Docker Container Networking
+## Task 1 
+Create 3 containers:
+Frontend,
+Backend,
+Database
 
-**Commands Used:**
-```bash
-docker network create frontend-net
-docker network create backend-net
-docker network create database-net
-
-docker run -d --name frontend --network frontend-net nginx
-docker run -d --name database --network database-net -e MYSQL_ROOT_PASSWORD=root mysql
-docker run -d --name backend --network backend-net alpine sleep 3600
-
-docker network connect frontend-net backend
-docker network connect database-net backend
-
-docker exec backend ping -c 3 frontend
-docker exec backend ping -c 3 database
-```
-
-![alt text](image.png)
+# use Nginx or Alpine images for the frontend and backend.
 
 
-## Task 2: Host Network
+### Use the MySQL image for the database.
 
-**Commands Used:**
-```bash
-docker pull httpd
-docker run -d --name apache-host --network host httpd
-docker run --rm --network host alpine wget -qO- http://localhost
-```
+
+### Create 3 different Docker networks.
+
+
+### Add the backend container to 2 networks.
+
+
+### Check connectivity between the containers
+
+![alt text](image-5.png)
+
+
+## Task 2 
+Pull the latest Apache 2 image from Docker Hub.
+Run an Apache 2 container using the host network.
+Open http://localhost in your browser. You should see the default Apache 2 page.
+Try to create a Dockerfile with a simple index.html file.
 
 ![alt text](image-1.png)
 
 
-## Task 3: Bind Mount (Before Update)
-
-**Commands Used:**
-```bash
-mkdir my-website
-cd my-website
-echo "Hello Students" > index.html
-docker run -d --name nginx-bind -p 8085:80 -v ${PWD}:/usr/share/nginx/html nginx
-curl http://localhost:8085
-```
-
+## Task 3 
+Create a folder on your host and add a simple index.html file inside it. 
+Use the bind mount option -v to mount that folder with the container’s document root. 
+Update the HTML file and see it reflected in the container without restarting it. 
 ![alt text](image-3.png)
 
-
-## Task 3: Bind Mount (After Update)
-
-**Commands Used:**
-```bash
-echo "Hello students - This was updated live!" > index.html
-curl http://localhost:8085
-```
-
-![alt text](image-4.png)
-
-
+## Task 3 after update
+![alt text](image-8.png)
 ## Task 4: Overlay Network
 
 ### What is a Docker Overlay Network?
@@ -75,3 +56,5 @@ Overlay networks operate by encapsulating the container's network traffic into a
 4. Host 2 receives the UDP packets, unpackages them, and delivers the original network packets to Container B.
 
 This creates a virtual, private subnet that the containers see as a single, contiguous network, completely abstracting away the underlying physical network topology of the servers.
+
+
