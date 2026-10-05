@@ -61,10 +61,4 @@ kubectl delete deployment hello-minikube
 ![alt text](image-3.png)
 
 ![alt text](image-4.png)
-## 6. Push Work to GitHub
-Once you have run these commands and collected your screenshots in this directory, push your work to your assignments branch:
-```powershell
-git add .
-git commit -m "Complete session 9 Kubernetes tasks"
-git push origin assignments
-```
+
