@@ -100,28 +100,18 @@
 ## Task 3: Mini Project
 
 ### Problem Statement
-The mini project contained two intentional issues: A new pod (`project-broken-pod`) was stuck in an error state, and the main service (`troubleshooting-service`) was incorrectly configured, potentially causing a routing failure.
+*(Describe the broken state of the mini project here)*
 
 ### Investigation Steps
-1. Ran `kubectl get pod project-broken-pod` and saw the `ImagePullBackOff` status.
-2. Ran `kubectl describe pod project-broken-pod` and checked the Events, noting it was trying to pull an invalid image tag.
-3. Edited the service using `kubectl edit service troubleshooting-service` (or checked with `kubectl get endpoints troubleshooting-service`) and noticed a selector mismatch leading to `<none>` endpoints.
-4. Ran `kubectl get pods --show-labels` to verify the correct labels (`app=troubleshooting-app`).
+1. *(What commands did you run? e.g., `kubectl get pods`, `kubectl describe ...`)*
+2. *(What anomalies did you notice in the logs or events?)*
 
 ### Root Cause
-1. **Broken Pod:** The `project-broken-pod` had a typo in the image tag (`nginx:1.999`).
-2. **Broken Service:** The `troubleshooting-service` selector was changed to `app: wrong-app`, meaning it couldn't find the valid pods labeled `app=troubleshooting-app`.
+*(Explain what was actually wrong with the YAMLs or cluster state)*
 
 ### Solution
-1. **Pod Fix:** Update the `project-broken-pod` image to a valid tag (e.g., `nginx:1.27`).
-2. **Service Fix:** Edit the service selector back to `app: troubleshooting-app` (or apply the original `service.yaml`) so the endpoints repopulate with the valid pod IPs.
+*(Explain what changes you made to fix it, e.g., fixing a typo in the label selector, correcting the image name, etc.)*
 
-### Before/After Output
-**Before:**
-*(Snippet or screenshot of the failing state)*
-
-**After:**
-*(Snippet or screenshot of the running/healthy state)*
-
-### Screenshots
-*(Attach any final proof that the application works as intended)*
+![alt text](image-11.png)
+![alt text](image-12.png)
+![alt text](image-13.png)
