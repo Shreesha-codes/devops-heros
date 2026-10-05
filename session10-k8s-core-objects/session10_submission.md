@@ -51,7 +51,9 @@ kubectl apply -f service-green.yaml
 # 5. Verify the active version is now Green
 kubectl get svc
 ```
-*(INSERT SCREENSHOT HERE)*
+![alt text](image-2.png)
+
+![alt text](image-3.png)
 
 
 ### 3. Canary Deployment
@@ -66,7 +68,7 @@ kubectl apply -f service.yaml
 # 2. Get all pods to show stable and canary running together
 kubectl get pods
 ```
-*(INSERT SCREENSHOT HERE)*
+![alt text](image-4.png)
 
 
 ### 4. Recreate Deployment
@@ -83,7 +85,7 @@ kubectl apply -f deployment-v2.yaml
 # 3. Immediately get pods
 kubectl get pods
 ```
-*(INSERT SCREENSHOT HERE)*
+![alt text](image-5.png)
 
 
 ---
@@ -99,7 +101,7 @@ kubectl get pod
 kubectl describe pod nginx-pod
 ```
 **Explanation**: The pod schedules successfully, pulls the image, and transitions to `Running`.
-*(INSERT SCREENSHOT HERE)*
+![alt text](image-6.png)
 
 
 **2. Succeeded Pod (Pending -> Running -> Succeeded)**
@@ -117,14 +119,8 @@ kubectl apply -f 06-imagepullbackoff.yaml
 kubectl get pod
 ```
 **Explanation**: The pod cannot pull the image because the tag does not exist or is invalid. It transitions to `ImagePullBackOff` and fails to run.
-*(INSERT SCREENSHOT HERE)*
+![alt text](image-7.png)
 
 
 ---
-## 3. Push Work to GitHub
-```powershell
-cd c:\Users\LENOVO\OneDrive\Desktop\devops-heros
-git add .
-git commit -m "Complete Session 10 Kubernetes tasks"
-git push origin assignments
-```
+
