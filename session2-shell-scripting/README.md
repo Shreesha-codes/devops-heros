@@ -5,4 +5,7 @@ I created a shell script (`sysinfo.sh`) that gathers system information, creates
 
 ### Script Execution Output
 
+![alt text](image-1.png)
+
 ### Contents of the output file (Running Processes)
+![alt text](image.png)
