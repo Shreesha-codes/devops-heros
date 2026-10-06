@@ -21,10 +21,13 @@ I successfully built and ran the multi-stage Docker container for the Node.js ap
 I deployed 3 different types of applications using Docker to demonstrate versatility in containerizing different tech stacks.
 
 ### 1. Node.js Application
-*(Attach a screenshot of the Node.js app running/docker ps output)*
+![alt text](image-2.png)
 
+![alt text](image-3.png)
 ### 2. Python Application
-*(Attach a screenshot of the Python app running/docker ps output)*
+![alt text](image-4.png)
+![alt text](image-5.png)
 
 ### 3. Java Application
-*(Attach a screenshot of the Java app running/docker ps output)*
+![alt text](image-6.png)
+
