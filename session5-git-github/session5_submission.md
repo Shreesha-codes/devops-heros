@@ -23,3 +23,5 @@ I successfully created a branch, made some commits, and cherry-picked a specific
 
 ### Cherry-Pick Verification
 ![alt text](image-1.png)
+
+![alt text](image-2.png)
