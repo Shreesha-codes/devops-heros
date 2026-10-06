@@ -2,18 +2,18 @@
 
 ## Task 2: Documentation
 - **Name:** Shreesha
-- **Enrollment Number:** *(Please fill in your enrollment number here)*
-
+- **Enrollment Number:** 10488
 ---
 
 ## Task 1: Multi-Stage Dockerfile Execution
 I successfully built and ran the multi-stage Docker container for the Node.js application.
 
 ### 1. Application Running Successfully in Browser (Port 8080)
-*(Attach a screenshot here showing the browser displaying "Hello World from Docker multi-stage build" at http://localhost:8080)*
+
+![alt text](image.png)
 
 ### 2. Running Container Verified via CLI
-*(Attach a screenshot of the `docker ps` output showing the container running on port 8080)*
+![alt text](image-1.png)
 
 ---
 
