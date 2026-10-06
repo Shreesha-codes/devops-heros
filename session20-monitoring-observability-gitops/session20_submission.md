@@ -43,3 +43,38 @@ Here is the screenshot showing how I manually scaled the deployment down to 1 in
 
 
 ![alt text](image-2.png)
+
+---
+
+## Task 4: Prometheus Monitoring Demo
+As part of the monitoring section, I successfully spun up a Prometheus instance locally using Docker Compose to scrape metrics.
+
+### Prometheus Container Running
+Here is the screenshot of my terminal showing the Prometheus container successfully started and running:
+![alt text](image-3.png)
+
+### Prometheus UI Dashboard
+Here is the screenshot of the Prometheus web interface running locally on my machine:
+![alt text](image-4.png)
+
+---
+
+## Task 5: Grafana Monitoring Demo
+To visualize the metrics collected by Prometheus, I set up a Grafana dashboard using Docker Compose.
+
+![alt text](image-6.png)
+
+### Grafana Dashboard UI
+Here is the screenshot of my Grafana instance successfully connected to Prometheus and visualizing the metrics:
+![alt text](image-5.png)
+
+---
+
+## Task 6: Argo CD UI Demo
+While I interacted with Argo CD via the `kubectl` CLI earlier, it also comes with a powerful web interface to visualize the GitOps sync status.
+![alt text](image-8.png)
+![alt text](image-9.png)
+
+### Argo CD Web Interface
+Here is the screenshot of my Argo CD web interface showing the `session20-mini` application completely synchronized with my GitHub repository:
+![alt text](image-7.png)
