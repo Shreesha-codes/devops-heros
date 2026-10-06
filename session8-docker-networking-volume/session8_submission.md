@@ -24,15 +24,15 @@ I created a local folder with an `index.html` file and bind-mounted it to an Ngi
 *(Attach a screenshot here showing the Nginx page displaying "Hello students")*
 
 ### 2. Live Update (No Restart Required)
-*(Attach a screenshot here showing the page displaying your updated text after modifying the local HTML file)*
-
 ![alt text](image-3.png)
+
 ---
 
-## Task 4: Overlay Network Research
-**What is an Overlay Network?**
-A Docker overlay network is a distributed network that spans across multiple Docker daemon hosts. It allows containers connected to it (even if they are on entirely different physical servers) to communicate securely with each other as if they were on the same local machine.
+## Task 4: My Overlay Network Research
 
-**Use Cases:**
-- **Docker Swarm:** Overlay networks are the default way Swarm services communicate with each other across different nodes.
-- **High Availability:** When deploying a distributed database or a microservice architecture across multiple VMs, an overlay network ensures the microservices can resolve and talk to each other seamlessly without exposing their ports to the public internet.
+**What I learned about Overlay Networks:**
+While doing my research for this task, I found out that a Docker overlay network is basically a distributed network that spans across multiple different Docker hosts. It's really cool because it allows containers that are sitting on entirely different physical servers to talk to each other securely, just as if they were running on the exact same local machine.
+
+**Where it's actually used:**
+- **Docker Swarm:** From what I read, overlay networks are the default way that Swarm services communicate across different nodes in a cluster.
+- **High Availability:** If I were deploying a microservice architecture across multiple VMs, using an overlay network would ensure that all my microservices could resolve and talk to each other seamlessly, without me having to expose their internal ports to the public internet.
