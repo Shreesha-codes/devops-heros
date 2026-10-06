@@ -29,12 +29,17 @@ For this mini-project, I set up a GitOps workflow. Basically, GitOps means I tre
 
 ### 1. Argo CD Synced Application
 Here is the screenshot of my Argo CD successfully syncing with my GitHub repository:
-*(Attach a screenshot of `kubectl get applications -n argocd` showing the app is Synced and Healthy)*
+
+
+![alt text](image.png)
 
 ### 2. Scaling via Git
 Here is the proof that when I changed the replicas to 3 in Git and pushed, the cluster automatically scaled up:
-*(Attach a screenshot showing the deployment scaling to 3 replicas after changing it in Git and pushing)*
+
+![alt text](image-1.png)
 
 ### 3. Self-Healing Demonstration
 Here is the screenshot showing how I manually scaled the deployment down to 1 in Kubernetes, but Argo CD immediately caught it and scaled it back up to 3 to match my Git repo:
-*(Attach a screenshot of manually scaling the deployment to 1 in Kubernetes, and Argo CD instantly scaling it back to 3 to match the Git repository)*
+
+
+![alt text](image-2.png)
