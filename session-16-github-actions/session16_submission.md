@@ -48,4 +48,4 @@ Our CI pipeline consists of three main jobs running on `ubuntu-latest`:
 ![alt text](image.png)
 ### 7. Failure and Fix Scenario
 By introducing a logic bug (`return a + b + 1`), the `test` job failed in GitHub Actions. Because the `build` job depends on the `test` job, the pipeline halted entirely, preventing broken code from being built. After reverting the logic back to `return a + b`, the tests passed and the pipeline completed successfully.
-![alt text](image-1.png)
+![alt text](image-2.png)
