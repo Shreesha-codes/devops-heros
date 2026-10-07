@@ -670,6 +670,8 @@ No matching labels = no endpoints = no traffic.
 
 Open TaskBoard and create a task.
 
+![Frontend UI](07-frontend-ui.png)
+
 ### 2. API
 
 Open FastAPI Swagger:
@@ -677,6 +679,10 @@ Open FastAPI Swagger:
 ```text
 /docs
 ```
+
+![API Root](03-api-root.png)
+![API Health](04-api-health.png)
+![API Docs Swagger](05-api-docs-swagger.png)
 
 Create/read/update/delete a task.
 
@@ -734,6 +740,8 @@ kubectl get hpa -n taskboard
 ### 14. Monitoring
 
 Show Prometheus and Grafana.
+
+![Metrics Prometheus](06-api-metrics-prometheus.png)
 
 ### 15. Failure simulation
 
