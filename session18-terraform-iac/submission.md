@@ -1,125 +1,200 @@
-# Session 18: Terraform & Infrastructure as Code - Submission
+# Session 18 — Terraform & Infrastructure as Code
 
-## Task 1: Terraform S3 Demo
+## Student Details
+**Name:** Shreesha
+**Roll Number:** 24BCS10488
+**Session:** Session 18 - Terraform & Infrastructure as Code
 
-### `provider.tf`
+## 1. Project Overview
+Welcome to the Session 18: Terraform & Infrastructure as Code (IaC) project submission!
+
+When people start using cloud providers like Amazon Web Services (AWS), they usually log into a website (the AWS Management Console) and click buttons to create servers, databases, and storage buckets. While that works for learning, it quickly becomes slow, error-prone, and impossible to replicate when building real-world software systems.
+
+In this assignment, we transition to modern DevOps practices by using HashiCorp Terraform—a tool that allows us to write plain code files that automatically build, manage, and delete cloud infrastructure.
+
+This submission is split into two main sections:
+
+**Task 1: Terraform S3 Demo Project**: Writing code to automatically create an Amazon S3 storage bucket on AWS, inspecting its properties, and destroying it safely using Terraform commands.
+**Task 2: AWS Services In-Depth Research**: A beginner-friendly yet thorough technical deep dive into five essential AWS services: IAM (Governance), EC2 (Virtual Servers), S3 (Object Storage), VPC (Private Networking), and DynamoDB & RDS (Database Solutions).
+
+## 2. Infrastructure as Code (IaC) Explained Simply
+**Note - Simple Real-World Analogy:**
+Imagine baking a cake. If you bake from memory without writing anything down, every cake will taste slightly different, and if you forget an ingredient, the cake is ruined. But if you have a written recipe card, anyone can follow the exact instructions and bake the exact same cake every single time.
+Infrastructure as Code is that recipe card for the cloud. Instead of manually clicking buttons on AWS, you write down your cloud setup as code. Terraform reads that recipe and builds your infrastructure reliably every single time.
+
+### 2.1 Declarative vs. Imperative — What’s the Difference?
+* **Imperative (Tell the computer HOW to do it step-by-step):** Like telling a taxi driver: "Drive 200 meters, turn left, wait 10 seconds at the signal, then turn right." If the driver misunderstands even one step, you end up lost. Scripts like Bash or PowerShell work this way.
+* **Declarative (Tell the computer WHAT you want the end result to be):** Like telling a taxi driver: "Take me to Central Railway Station." The driver figures out the best route and gets you to the exact destination. Terraform is declarative: you simply declare "I want an S3 bucket named my-bucket", and Terraform handles all the complex AWS API calls to make it happen.
+
+### 2.2 Why is Terraform So Popular?
+* **Idempotence (Safe to re-run):** If you run Terraform ten times without changing your code, it won't create ten duplicate buckets. It checks what is already there and only makes changes if needed.
+* **Version Control:** Since infrastructure is written in text files (.tf), you can track changes in Git, collaborate in teams, and review pull requests before deploying to the cloud.
+* **Cloud Agnostic:** Terraform uses a universal language (HCL - HashiCorp Configuration Language) and can talk to AWS, Google Cloud, Microsoft Azure, Kubernetes, and hundreds of other platforms using Providers.
+
+## 3. How Terraform Works Under the Hood
+Terraform relies on three core building blocks to do its job:
+
+```text
+  ┌─────────────────────────────────────────────────────────────┐
+  │                 Your Code (.tf files)                       │
+  │     (The blueprint: "I want an S3 bucket in ap-south-1")    │
+  └──────────────────────────────┬──────────────────────────────┘
+                                 │
+                                 ▼
+  ┌─────────────────────────────────────────────────────────────┐
+  │                    Terraform Core Engine                    │
+  │  (Reads code, compares with state, creates execution plan)  │
+  └──────────────┬──────────────────────────────┬───────────────┘
+                 │                              │
+                 ▼                              ▼
+  ┌─────────────────────────────┐ ┌─────────────────────────────┐
+  │    AWS Provider Plugin      │ │  State File (terraform.tfstate)
+  │ (Translates to AWS API calls)│ │ (Memory of what is already  │
+  └──────────────┬──────────────┘ │           built)            │
+                 │                └─────────────────────────────┘
+                 ▼
+  ┌─────────────────────────────┐
+  │    Real AWS Cloud Resource  │
+  │      (Live S3 Bucket)       │
+  └─────────────────────────────┘
+```
+* **The Provider (`provider.tf`):** Think of the provider as a translator or adapter. Terraform core doesn't inherently know how AWS works. The AWS Provider plugin translates Terraform instructions into official AWS API requests.
+* **The State File (`terraform.tfstate`):** Think of the state file as Terraform's memory notebook. When Terraform creates a bucket on AWS, AWS assigns it unique IDs and ARNs. Terraform writes those details into `terraform.tfstate`. Next time you run a command, Terraform checks this notebook first so it knows what already exists.
+
+## 4. Task 1: Terraform S3 Project Breakdown
+All code files for Task 1 are stored in the project folder.
+
+### 4.1 Project File Layout
+```text
+terraform-s3-demo/
+├── provider.tf       # Tells Terraform to use the AWS plugin and sets the region
+├── variables.tf      # Declares inputs/parameters (like bucket name and region)
+├── terraform.tfvars  # Supplies the actual custom values for our variables
+├── main.tf           # Defines the actual S3 bucket resource to be created
+├── outputs.tf        # Specifies what information to print after creation
+└── README.md         # Local documentation
+```
+
+### 4.2 Walking Through the Code Files
+
+**1. `provider.tf` — Connecting to AWS**
+This file tells Terraform which cloud provider we are talking to and which region to target:
 ```hcl
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
 provider "aws" {
   region = var.aws_region
 }
 ```
+*Beginner Explanation:* Just like selecting your city on a delivery app, this tells Terraform to build our resources in AWS's Mumbai region (`ap-south-1`).
 
-### `variables.tf`
+**2. `variables.tf` — Creating Reusable Parameters**
+Instead of hardcoding values directly in our resource code, we define variables:
 ```hcl
 variable "aws_region" {
-  description = "The AWS region to deploy to"
   type        = string
-  default     = "us-east-1"
+  description = "AWS region where the S3 bucket will be created."
+  default     = "ap-south-1"
 }
 
 variable "bucket_name" {
-  description = "The name of the S3 bucket"
   type        = string
-}
-
-variable "environment" {
-  description = "The environment (e.g., dev, prod)"
-  type        = string
-  default     = "dev"
+  description = "Name of the S3 bucket."
+  default     = "yatri1107"
 }
 ```
+*Beginner Explanation:* Variables are like fill-in-the-blank forms. They allow the same code to be reused for development, testing, or production simply by changing the input values.
 
-### `main.tf`
+**3. `terraform.tfvars` — Supplying Real Values**
+In AWS, S3 bucket names must be globally unique across all AWS accounts in the world. We use `terraform.tfvars` to supply our unique custom name:
 ```hcl
-resource "aws_s3_bucket" "demo_bucket" {
-  bucket = var.bucket_name
+aws_region  = "ap-south-1"
+bucket_name = "yatri1107-shreesha-24bcs10488"
+```
+
+**4. `main.tf` — Declaring the S3 Bucket Resource**
+This is the core recipe where we declare what we want AWS to create:
+```hcl
+resource "aws_s3_bucket" "devops553" {
+  bucket        = var.bucket_name
+  force_destroy = true
 
   tags = {
-    Name        = "Demo Bucket"
-    Environment = var.environment
-  }
-}
-
-resource "aws_s3_bucket_ownership_controls" "demo_bucket_acl_ownership" {
-  bucket = aws_s3_bucket.demo_bucket.id
-  rule {
-    object_ownership = "ObjectWriter"
-  }
-}
-
-resource "aws_s3_bucket_acl" "demo_bucket_acl" {
-  depends_on = [aws_s3_bucket_ownership_controls.demo_bucket_acl_ownership]
-  bucket     = aws_s3_bucket.demo_bucket.id
-  acl        = "private"
-}
-
-resource "aws_s3_bucket_versioning" "demo_bucket_versioning" {
-  bucket = aws_s3_bucket.demo_bucket.id
-  versioning_configuration {
-    status = "Enabled"
+    Name        = var.bucket_name
+    Environment = "dev"
+    ManagedBy   = "Terraform"
+    Project     = "Session18"
   }
 }
 ```
+*Beginner Explanation:*
+* `resource "aws_s3_bucket" "devops553"`: We are creating an AWS S3 bucket, and internally inside Terraform, we give this block a local nickname (`devops553`).
+* `force_destroy = true`: Allows Terraform to safely clean up and delete the bucket even if files are placed inside it later.
+* `tags`: Key-value labels attached to the bucket in AWS so teammates know who owns it and what project it belongs to.
 
-### `outputs.tf`
+**5. `outputs.tf` — Returning Helpful Information**
+Once the bucket is created, we want Terraform to immediately print out its details on our screen:
 ```hcl
-output "bucket_id" {
-  description = "The name of the bucket."
-  value       = aws_s3_bucket.demo_bucket.id
+output "bucket_name" {
+  type        = string
+  description = "Name of the S3 bucket."
+  value       = aws_s3_bucket.devops553.bucket
 }
 
 output "bucket_arn" {
-  description = "The ARN of the bucket. Will be of format arn:aws:s3:::bucketname."
-  value       = aws_s3_bucket.demo_bucket.arn
+  type        = string
+  description = "ARN of the S3 bucket."
+  value       = aws_s3_bucket.devops553.arn
 }
 
 output "bucket_region" {
-  description = "The AWS region this bucket resides in."
-  value       = aws_s3_bucket.demo_bucket.region
+  type        = string
+  description = "AWS region of the S3 bucket."
+  value       = aws_s3_bucket.devops553.region
 }
 ```
 
-### `terraform.tfvars`
-```hcl
-aws_region  = "us-east-1"
-bucket_name = "my-demo-s3-bucket-terraform-12345"
-environment = "dev"
+## 5. The Terraform Lifecycle — Step-by-Step Execution
+Here is the exact journey we executed in our terminal to build, inspect, and destroy the infrastructure, along with our verified execution screenshots.
+```text
+ ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+ │  1. init     │ ──► │ 2. fmt/valid │ ──► │  3. plan     │ ──► │  4. apply    │
+ │ (Setup tools)│     │(Check syntax)│     │(Preview plan)│     │ (Build on AWS│
+ └──────────────┘     └──────────────┘     └──────────────┘     └──────┬───────┘
+                                                                       │
+ ┌──────────────┐     ┌──────────────┐     ┌──────────────┐            │
+ │  7. destroy  │ ◄── │  6. output   │ ◄── │   5. show    │ ◄──────────┘
+ │(Clean up AWS)│     │(Read values) │     │(Inspect state│
+ └──────────────┘     └──────────────┘     └──────────────┘
 ```
 
-### Terraform Workflow
+**Step 1: Initializing Terraform (`terraform init`)**
+Before Terraform can do anything, it must prepare the working directory. It reads `provider.tf`, notices we need AWS, connects to HashiCorp's registry, downloads the AWS plugin, and creates a `.terraform.lock.hcl` file.
+![Terraform Init](./01-terraform-init (1).png)
 
-1. **Initialize Terraform:** `terraform init`
+**Step 2: Formatting Code (`terraform fmt`)**
+Rewrites Terraform configuration files to a canonical format and style.
 
-![alt text](<01-terraform-init (1).png>)
+**Step 3: Validating Code (`terraform validate`)**
+Validates the configuration files in a directory.
+![Terraform Fmt and Validate](./02-terraform-fmt-validate.png)
 
-2. **Format Code:** `terraform fmt`
-
-![alt text](02-terraform-fmt-validate.png)
-3. **Validate Code:** `terraform validate`
-
-
-4. **Create Execution Plan:** `terraform plan`
+**Step 4: Creating Execution Plan (`terraform plan`)**
+Creates an execution plan, letting you preview the changes that Terraform plans to make to your infrastructure.
 ![Terraform Plan](./03-terraform-plan.png)
 
-5. **Apply Changes:** `terraform apply`
+**Step 5: Applying Changes (`terraform apply`)**
+Executes the actions proposed in a Terraform plan.
 ![Terraform Apply](./04-terraform-apply.png)
 
-6. **Show State:** `terraform show`
+**Step 6: Showing State (`terraform show`)**
+Provides human-readable output from a state or plan file.
 ![Terraform Show](./05-terraform-show.png)
 
-7. **View Outputs:** `terraform output`
+**Step 7: Viewing Outputs (`terraform output`)**
+Extracts the value of an output variable from the state file.
 ![Terraform Output](./06-terraform-output.png)
 
-8. **Destroy Infrastructure:** `terraform destroy`
+**Step 8: Destroying Infrastructure (`terraform destroy`)**
+Destroys all remote objects managed by a particular Terraform configuration.
 ![Terraform Destroy](./07-terraform-destroy.png)
 
 
