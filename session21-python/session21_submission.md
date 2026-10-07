@@ -824,3 +824,12 @@ Troubleshooting
 ```
 
 That is the actual objective of Session 21.
+![alt text](03-api-root-1.png)
+
+![alt text](<04-api-health (1).png>)
+
+![alt text](<05-api-docs-swagger (1).png>)
+
+![alt text](<06-api-metrics-prometheus (1).png>)
+
+![alt text](<07-frontend-ui (1).png>)
