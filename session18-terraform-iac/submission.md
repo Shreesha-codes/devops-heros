@@ -98,11 +98,14 @@ environment = "dev"
 ### Terraform Workflow
 
 1. **Initialize Terraform:** `terraform init`
-![Terraform Init](./01-terraform-init (1).png)
+
+![alt text](<01-terraform-init (1).png>)
 
 2. **Format Code:** `terraform fmt`
+
+![alt text](02-terraform-fmt-validate.png)
 3. **Validate Code:** `terraform validate`
-![Terraform Fmt and Validate](./02-terraform-fmt-validate.png)
+
 
 4. **Create Execution Plan:** `terraform plan`
 ![Terraform Plan](./03-terraform-plan.png)
