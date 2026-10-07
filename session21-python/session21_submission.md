@@ -219,7 +219,7 @@ Run migrations:
 ```bash
 alembic upgrade head
 ```
-![alt text](image-4.png)
+![alt text](image-12.png)
 Start FastAPI:
 
 ```bash
