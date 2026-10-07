@@ -1,15 +1,14 @@
-output "bucket_name" {
-  type        = string
-  description = "Name of the S3 bucket."
-  value       = aws_s3_bucket.devops553.bucket
+output "bucket_id" {
+  description = "The name of the bucket."
+  value       = aws_s3_bucket.demo_bucket.id
 }
+
 output "bucket_arn" {
-  type        = string
-  description = "ARN of the S3 bucket."
-  value       = aws_s3_bucket.devops553.arn
+  description = "The ARN of the bucket. Will be of format arn:aws:s3:::bucketname."
+  value       = aws_s3_bucket.demo_bucket.arn
 }
+
 output "bucket_region" {
-  type        = string
-  description = "AWS region of the S3 bucket."
-  value       = aws_s3_bucket.devops553.region
+  description = "The AWS region this bucket resides in."
+  value       = aws_s3_bucket.demo_bucket.region
 }
