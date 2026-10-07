@@ -157,7 +157,10 @@ Run:
 
 ```bash
 docker compose up --build
+
+
 ```
+![alt text](image.png)
 
 Open:
 
@@ -178,12 +181,15 @@ Stop:
 ```bash
 docker compose down
 ```
+![alt text](image-1.png)
 
 Delete database volume too:
 
 ```bash
 docker compose down -v
 ```
+
+![alt text](image-2.png)
 
 ---
 
@@ -200,6 +206,7 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
+![alt text](image-3.png)
 
 Set the database connection:
 
@@ -212,20 +219,20 @@ Run migrations:
 ```bash
 alembic upgrade head
 ```
-
+![alt text](image-4.png)
 Start FastAPI:
 
 ```bash
 uvicorn app.main:app --reload --port 8000
 ```
-
+![alt text](image-5.png)
 Test:
 
 ```bash
 curl http://localhost:8000/health
 curl http://localhost:8000/api/tasks
 ```
-
+![alt text](image-6.png)
 Open:
 
 ```text
@@ -242,6 +249,7 @@ http://localhost:8000/docs
 cd backend
 pytest -q
 ```
+![alt text](image-7.png)
 
 Students should understand why tests happen **before Docker images are pushed**.
 
@@ -273,7 +281,7 @@ git push -u origin main
 ```
 
 Explain:
-
+![alt text](image-8.png)
 - Git = version control
 - GitHub = remote collaboration/source platform
 - commit = immutable project checkpoint
@@ -302,6 +310,7 @@ Build:
 ```bash
 docker build -t taskboard-backend:local ./backend
 ```
+![alt text](image-9.png)
 
 Run with a reachable PostgreSQL instance:
 
@@ -310,9 +319,10 @@ docker run --rm -p 8000:8000 \
   -e DATABASE_URL='postgresql+psycopg://taskboard:taskboard@host.docker.internal:5432/taskboard' \
   taskboard-backend:local
 ```
-
+![alt text](image-10.png)
 ## 10. Frontend Dockerfile
 
+![alt text](image-11.png)
 The frontend uses a multi-stage build:
 
 ```text
